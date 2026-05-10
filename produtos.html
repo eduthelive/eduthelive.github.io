@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produtos | ESC Nexus Consultoria</title>
+<meta name="description" content="Produtos digitais da ESC Nexus Consultoria. Excel, Power BI e ferramentas para o ambiente corporativo.">
+<meta property="og:title" content="Produtos · ESC Nexus Consultoria">
+<meta property="og:description" content="Ferramentas práticas para quem trabalha com dados no dia a dia corporativo.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<!-- Anti-FOUC: aplica tema antes do primeiro render -->
+<script>(function(){var t=localStorage.getItem('nexus-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})()</script>
+
+<style>
+/* ============================================================
+   RESET & TOKENS
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:             #FAFAF8;
+  --off-white:      #F2F1EC;
+  --card-bg:        #ffffff;
+  --forest:         #0A2619;
+  --forest-mid:     #1B4332;
+  --forest-light:   #2D6A4F;
+  --forest-glow:    rgba(10,38,25,0.11);
+  --midnight:       #1A2B5F;
+  --midnight-mid:   #243580;
+  --blue-accent:    rgba(160,190,255,0.75);
+  --slate:          #3D4A5C;
+  --slate-mid:      #6B7A8D;
+  --slate-light:    #9AAAB8;
+  --gray-50:        #F7F7F4;
+  --gray-100:       #EAEAE6;
+  --gray-200:       #D4D4CF;
+  --black:          #0A0A09;
+  --text-main:      #0A0A09;
+  --header-bg:      rgba(250,250,248,0.94);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-cinzel:  'Cinzel', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  --r-sm:  6px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
+  --ease:  cubic-bezier(0.25, 0.1, 0.25, 1);
+  --t:     0.35s var(--ease);
+  --t-theme: 0.4s var(--ease);
+
+  --ticker-h: 32px;
+  --header-h: 78px;
+  --offset:   110px;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg); color: var(--text-main);
+  line-height: 1.65; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--t-theme), color var(--t-theme);
+}
+
+/* ============================================================
+   DARK MODE
+============================================================ */
+[data-theme="dark"] {
+  --bg:          #0D0D0B;
+  --off-white:   #161614;
+  --card-bg:     #161614;
+  --gray-50:     #1A1A17;
+  --gray-100:    rgba(255,255,255,0.08);
+  --gray-200:    rgba(255,255,255,0.12);
+  --slate:       #A8B3BF;
+  --slate-mid:   #7A8A9A;
+  --slate-light: #5A6A7A;
+  --text-main:   #F0EFE9;
+  --header-bg:   rgba(13,13,11,0.95);
+  --forest-glow: rgba(10,38,25,0.28);
+}
+[data-theme="dark"] header            { background: var(--header-bg); }
+[data-theme="dark"] header.scrolled   { border-bottom-color: rgba(255,255,255,0.06); box-shadow: 0 2px 32px rgba(0,0,0,0.35); }
+[data-theme="dark"] .mobile-nav       { background: rgba(13,13,11,0.97); border-bottom-color: rgba(255,255,255,0.06); }
+[data-theme="dark"] .logo-nexus       { color: var(--forest-light); }
+[data-theme="dark"] .btn-outline      { border-color: rgba(255,255,255,0.14); color: var(--slate); }
+[data-theme="dark"] .btn-outline:hover{ border-color: var(--forest-light); color: var(--forest-light); }
+[data-theme="dark"] .prod-card        { background: var(--card-bg); border-color: var(--gray-100); box-shadow: 0 2px 24px rgba(0,0,0,0.28); }
+[data-theme="dark"] .prod-card:hover  { box-shadow: 0 20px 56px rgba(0,0,0,0.40); }
+[data-theme="dark"] .prod-benefit     { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.07); }
+[data-theme="dark"] .prod-badge       { background: rgba(45,106,79,0.22); border-color: rgba(45,106,79,0.35); color: var(--forest-light); }
+[data-theme="dark"] .soon-card        { background: #121210; border-color: rgba(255,255,255,0.06); }
+[data-theme="dark"] .tag              { background: #1A1A17; border-color: rgba(255,255,255,0.08); color: var(--slate); }
+[data-theme="dark"] .footer-nav-col a:hover { color: rgba(255,255,255,0.76); }
+
+/* Theme toggle */
+.theme-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--gray-200); background: transparent;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--slate-mid); flex-shrink: 0; position: relative;
+  transition: background var(--t), border-color var(--t), color var(--t);
+}
+.theme-btn:hover { background: var(--gray-50); color: var(--text-main); }
+.icon-sun, .icon-moon {
+  position: absolute; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.icon-moon { opacity: 1; transform: rotate(0deg); }
+.icon-sun  { opacity: 0; transform: rotate(90deg); }
+[data-theme="dark"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
+[data-theme="dark"] .icon-sun  { opacity: 1; transform: rotate(0deg); }
+
+/* ============================================================
+   PROGRESS BAR
+============================================================ */
+#progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--forest), var(--midnight));
+  z-index: 9999; transition: width 0.1s linear;
+}
+
+/* ============================================================
+   TICKER
+============================================================ */
+.ticker-strip {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--ticker-h); background: var(--forest);
+  overflow: hidden; z-index: 1100; display: flex; align-items: center;
+}
+.ticker-track { display: flex; white-space: nowrap; animation: ticker 44s linear infinite; }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.ticker-item {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-mono); font-size: 0.63rem; letter-spacing: 0.13em;
+  color: rgba(255,255,255,0.40); text-transform: uppercase; padding: 0 2rem; flex-shrink: 0;
+}
+.ticker-sep { color: rgba(255,255,255,0.16); margin-left: 2rem; }
+
+/* ============================================================
+   HEADER
+============================================================ */
+header {
+  position: fixed; top: var(--ticker-h); left: 0; right: 0;
+  z-index: 1000; height: var(--header-h);
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--header-bg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t), box-shadow var(--t), background var(--t-theme);
+}
+header.scrolled { border-bottom-color: var(--gray-100); box-shadow: 0 2px 32px rgba(0,0,0,0.07); }
+
+.logo-wrap { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+.logo-img {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; object-position: center;
+  border: 1.5px solid rgba(10,38,25,0.55);
+  box-shadow: 0 0 0 4px var(--forest-glow), 0 0 20px rgba(10,38,25,0.14);
+  flex-shrink: 0;
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-esc { font-family: var(--font-body); font-size: 0.57rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate-mid); }
+.logo-nexus { font-family: var(--font-cinzel); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.05em; color: var(--forest); line-height: 1; transition: color var(--t-theme); }
+.logo-suffix { font-size: 0.7rem; font-weight: 400; font-family: var(--font-body); color: var(--slate-mid); letter-spacing: 0.03em; margin-left: 0.3em; }
+
+nav { display: flex; align-items: center; gap: 2rem; }
+nav a {
+  font-size: 0.74rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--slate-mid); text-decoration: none; transition: color var(--t); position: relative;
+}
+nav a::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px; background: var(--forest); transition: width var(--t); }
+nav a:hover { color: var(--text-main); }
+nav a:hover::after { width: 100%; }
+nav a.nav-active { color: var(--forest); }
+nav a.nav-active::after { width: 100%; }
+.nav-cta {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--bg) !important; background: var(--forest); padding: 0.52rem 1.2rem;
+  border-radius: var(--r-sm); transition: background var(--t), transform var(--t) !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--forest-mid) !important; transform: translateY(-1px); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-main); transition: var(--t); }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; top: var(--offset); left: 0; right: 0;
+  background: rgba(250,250,248,0.97); backdrop-filter: blur(16px);
+  z-index: 999; padding: 1.5rem clamp(1.5rem, 5vw, 4rem) 2rem;
+  border-bottom: 1px solid var(--gray-100); flex-direction: column; gap: 1.2rem;
+  opacity: 0; transform: translateY(-8px); transition: opacity 0.3s, transform 0.3s;
+}
+.mobile-nav.open { display: flex; opacity: 1; transform: translateY(0); }
+.mobile-nav a { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--slate); text-decoration: none; }
+
+/* ============================================================
+   UTILITY
+============================================================ */
+.container { max-width: 1160px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate-mid); margin-bottom: 1.1rem;
+}
+.eyebrow::before { content: ''; width: 16px; height: 1px; background: currentColor; display: block; flex-shrink: 0; }
+
+.fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.72s var(--ease), transform 0.72s var(--ease); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--forest); color: #fff; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.04em;
+  padding: 0.92rem 1.9rem; border-radius: var(--r-sm); text-decoration: none;
+  transition: background var(--t), transform var(--t), box-shadow var(--t);
+}
+.btn-primary:hover { background: var(--forest-mid); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(10,38,25,0.26); }
+.btn-primary svg { transition: transform var(--t); }
+.btn-primary:hover svg { transform: translateX(3px); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--slate); font-size: 0.84rem; font-weight: 500; letter-spacing: 0.04em;
+  padding: 0.92rem 1.5rem; border-radius: var(--r-sm); text-decoration: none;
+  border: 1px solid var(--gray-200); transition: border-color var(--t), color var(--t), transform var(--t);
+}
+.btn-outline:hover { border-color: var(--forest); color: var(--forest); transform: translateY(-2px); }
+
+/* ============================================================
+   BACK-TO-TOP & WA FLOAT
+============================================================ */
+#back-top {
+  position: fixed; bottom: 5.5rem; right: 2rem;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--forest); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s; z-index: 900;
+}
+#back-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+.wa-float {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #25D366; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.40); text-decoration: none;
+  animation: wa-pulse 2.8s ease-in-out infinite;
+}
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.40); }
+  50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.65); }
+}
+
+/* ============================================================
+   PAGE HERO
+============================================================ */
+#page-hero {
+  padding-top: var(--offset);
+  background: var(--bg);
+  transition: background var(--t-theme);
+}
+#page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(58,58,56,0.14) 1px, transparent 1px);
+  background-size: 24px 24px; pointer-events: none;
+}
+.page-hero-inner {
+  position: relative; padding: 5rem 0 4.5rem;
+}
+.page-hero-head { max-width: 640px; }
+.page-hero-head h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 700; line-height: 1.08; letter-spacing: -0.028em;
+  color: var(--text-main); margin-bottom: 1.2rem;
+  transition: color var(--t-theme);
+}
+.page-hero-head h1 em { font-style: italic; color: var(--forest); }
+.page-hero-head p {
+  font-size: 1.05rem; font-weight: 300; color: var(--slate-mid);
+  line-height: 1.8; max-width: 520px;
+}
+
+/* ============================================================
+   PRODUTOS SECTION
+============================================================ */
+#produtos {
+  padding: 5rem 0 6rem;
+  background: var(--bg);
+  transition: background var(--t-theme);
+}
+
+/* Featured product card */
+.prod-card {
+  background: var(--card-bg);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--r-xl);
+  padding: 3.2rem 3.4rem;
+  box-shadow: 0 2px 24px rgba(10,38,25,0.07);
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 4rem;
+  align-items: start;
+  transition: box-shadow var(--t), border-color var(--t), background var(--t-theme);
+  max-width: 980px;
+}
+.prod-card:hover {
+  box-shadow: 0 20px 56px rgba(10,38,25,0.12);
+}
+
+.prod-badge {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--forest-light); background: rgba(45,106,79,0.10);
+  border: 1px solid rgba(45,106,79,0.22);
+  padding: 0.32rem 0.85rem; border-radius: 100px; margin-bottom: 1.5rem;
+  transition: background var(--t-theme), border-color var(--t-theme), color var(--t-theme);
+}
+.prod-badge-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--forest-light); flex-shrink: 0;
+}
+
+.prod-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+  color: var(--text-main); margin-bottom: 1rem;
+  transition: color var(--t-theme);
+}
+.prod-name em { font-style: italic; color: var(--forest); }
+
+.prod-desc {
+  font-size: 1rem; font-weight: 300; color: var(--slate-mid);
+  line-height: 1.8; margin-bottom: 2rem;
+}
+
+.prod-benefits { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.4rem; }
+.prod-benefit {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  background: var(--gray-50); border: 1px solid var(--gray-100);
+  border-radius: var(--r-md); padding: 0.9rem 1.1rem;
+  font-size: 0.92rem; line-height: 1.5; color: var(--slate);
+  transition: background var(--t-theme), border-color var(--t-theme);
+}
+.benefit-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(10,38,25,0.08); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+/* Pricing side */
+.prod-pricing {
+  display: flex; flex-direction: column; gap: 0;
+  position: sticky; top: calc(var(--offset) + 2rem);
+}
+.prod-price-card {
+  background: var(--forest);
+  border-radius: var(--r-lg);
+  padding: 2.4rem 2rem;
+  color: rgba(255,255,255,0.88);
+  display: flex; flex-direction: column; gap: 1.6rem;
+}
+.prod-price-label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: rgba(255,255,255,0.44);
+}
+.prod-price-val {
+  font-family: var(--font-cinzel); font-size: 2.6rem; font-weight: 700;
+  color: #fff; line-height: 1; letter-spacing: -0.01em;
+}
+.prod-price-val sup { font-size: 1.1rem; vertical-align: super; margin-right: 0.2rem; font-weight: 400; }
+.prod-price-note {
+  font-size: 0.78rem; color: rgba(255,255,255,0.44);
+  line-height: 1.5; margin-top: -0.8rem;
+}
+.prod-includes { display: flex; flex-direction: column; gap: 0.6rem; }
+.prod-include-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.84rem; color: rgba(255,255,255,0.70);
+}
+.prod-include-item svg { flex-shrink: 0; }
+
+.btn-buy {
+  display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+  background: #fff; color: var(--forest);
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 0.03em;
+  padding: 1rem 1.8rem; border-radius: var(--r-sm); text-decoration: none;
+  transition: background var(--t), transform var(--t), box-shadow var(--t);
+  white-space: nowrap;
+}
+.btn-buy:hover { background: rgba(255,255,255,0.90); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.20); }
+.btn-buy svg { transition: transform var(--t); }
+.btn-buy:hover svg { transform: translateX(3px); }
+
+/* Tags */
+.prod-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.tag {
+  font-family: var(--font-mono); font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--slate-mid); background: var(--gray-50); border: 1px solid var(--gray-100);
+  padding: 0.26rem 0.75rem; border-radius: 100px;
+  transition: background var(--t-theme), border-color var(--t-theme), color var(--t-theme);
+}
+
+/* ============================================================
+   EM BREVE SECTION
+============================================================ */
+#em-breve {
+  padding: 4rem 0 6rem;
+  background: var(--off-white);
+  transition: background var(--t-theme);
+}
+
+.soon-head { margin-bottom: 3rem; }
+.soon-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 600; letter-spacing: -0.02em;
+  color: var(--text-main); margin-bottom: 0.7rem;
+  transition: color var(--t-theme);
+}
+.soon-head h2 em { font-style: italic; color: var(--slate-mid); }
+.soon-head p { font-size: 1rem; color: var(--slate-mid); line-height: 1.7; max-width: 480px; }
+
+.soon-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 700px; }
+
+.soon-card {
+  background: var(--card-bg);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--r-lg);
+  padding: 2.6rem 2.2rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: background var(--t-theme), border-color var(--t-theme);
+}
+
+.soon-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--slate-light); background: var(--gray-50);
+  border: 1px solid var(--gray-100); padding: 0.28rem 0.8rem; border-radius: 100px;
+}
+.soon-pill-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gray-200); flex-shrink: 0;
+}
+
+.soon-card-title {
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+  color: var(--slate-mid); line-height: 1.3;
+  transition: color var(--t-theme);
+}
+.soon-card-desc {
+  font-size: 0.88rem; color: var(--slate-light); line-height: 1.7;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  background: var(--black); color: rgba(255,255,255,0.55);
+  padding: 4rem 0 2.5rem;
+}
+.footer-inner {
+  display: grid; grid-template-columns: 1.8fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 3rem;
+}
+.footer-brand-desc { font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.36); max-width: 280px; }
+.footer-nav-col { display: flex; flex-direction: column; gap: 0.75rem; }
+.footer-nav-col h4 { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.30); margin-bottom: 0.4rem; }
+.footer-nav-col a { font-size: 0.84rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color var(--t); }
+.footer-nav-col a:hover { color: rgba(255,255,255,0.76); }
+.footer-bar { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07); gap: 1rem; }
+.footer-copy { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.22); }
+.footer-tagline { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.16); text-transform: uppercase; }
+
+/* Logo in footer stays light on dark bg */
+footer .logo-nexus { color: rgba(255,255,255,0.80); }
+footer .logo-esc   { color: rgba(255,255,255,0.30); }
+[data-theme="dark"] footer .logo-nexus { color: rgba(255,255,255,0.80); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 900px) {
+  nav { display: none; }
+  .hamburger { display: flex; }
+  .prod-card { grid-template-columns: 1fr; }
+  .prod-pricing { position: static; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .soon-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .wa-float { bottom: 1.5rem; right: 1.5rem; }
+  #back-top { bottom: 5.5rem; right: 1.6rem; }
+  .footer-bar { flex-direction: column; align-items: flex-start; }
+  .prod-card { padding: 2rem 1.6rem; }
+  .prod-price-card { padding: 2rem 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<a href="https://wa.me/5564992999940" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Topo">
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M2 6l4-4 4 4" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<div class="ticker-strip"><div class="ticker-track" id="ticker-track"></div></div>
+
+<!-- HEADER -->
+<header id="main-header">
+  <a href="index.html" class="logo-wrap">
+    <img src="logo.jpg" alt="ESC Nexus" class="logo-img">
+    <div class="logo-text">
+      <span class="logo-esc">ESC</span>
+      <span class="logo-nexus">NEXUS<span class="logo-suffix">Consultoria</span></span>
+    </div>
+  </a>
+  <nav>
+    <a href="index.html#solucoes">Soluções</a>
+    <a href="index.html#dados">Engenharia de Dados</a>
+    <a href="produtos.html" class="nav-active">Produtos</a>
+    <a href="index.html#ecossistema">Ecossistema</a>
+    <a href="sobre.html" class="nav-cta">Quem Somos</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:0.7rem;">
+    <button id="theme-toggle" class="theme-btn" aria-label="Alternar tema">
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 10A5.5 5.5 0 016 2.5a6 6 0 100 11A5.5 5.5 0 0113.5 10z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html#solucoes"    onclick="closeMobileNav()">Soluções</a>
+  <a href="index.html#dados"       onclick="closeMobileNav()">Engenharia de Dados</a>
+  <a href="produtos.html">Produtos</a>
+  <a href="index.html#ecossistema" onclick="closeMobileNav()">Ecossistema</a>
+  <a href="sobre.html">Quem Somos</a>
+</div>
+
+<!-- PAGE HERO -->
+<section id="page-hero" style="position:relative;overflow:hidden;">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-hero-head">
+        <div class="eyebrow fade-in">Loja de Produtos</div>
+        <h1 class="fade-in d1">Ferramentas que funcionam<br><em>no dia a dia real.</em></h1>
+        <p class="fade-in d2">Materiais práticos desenvolvidos para quem trabalha com dados, processos e análises dentro das empresas. Sem enrolação, sem conteúdo genérico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+  <div class="container">
+
+    <div class="prod-card fade-in">
+
+      <!-- Left: info -->
+      <div class="prod-info">
+        <div class="prod-badge">
+          <span class="prod-badge-dot"></span>
+          Acesso Vitalício · Atualização Inclusa
+        </div>
+
+        <h2 class="prod-name">Excel Básico para o<br><em>Ambiente Corporativo</em></h2>
+
+        <p class="prod-desc">
+          Um guia direto ao ponto para quem precisa usar o Excel no trabalho — e quer parar de perder tempo em tarefas que deveriam ser simples. Cobre desde as funções que todo profissional deveria dominar até técnicas que eliminam retrabalho no dia a dia.
+        </p>
+
+        <div class="prod-tags">
+          <span class="tag">Excel</span>
+          <span class="tag">Produtividade</span>
+          <span class="tag">Corporativo</span>
+          <span class="tag">Iniciante ao Intermediário</span>
+        </div>
+
+        <div class="prod-benefits">
+          <div class="prod-benefit">
+            <span class="benefit-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--forest)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span>Funções essenciais que aparecem em todo relatório corporativo — PROCV, SE, SOMASES e a lógica por trás delas.</span>
+          </div>
+          <div class="prod-benefit">
+            <span class="benefit-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--forest)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span>Tabelas dinâmicas do zero: como montar, filtrar e extrair exatamente o que o gestor precisa ver.</span>
+          </div>
+          <div class="prod-benefit">
+            <span class="benefit-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--forest)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span>Atalhos e formatação inteligente que cortam o tempo de trabalho pela metade — testados no ambiente real de escritório.</span>
+          </div>
+          <div class="prod-benefit">
+            <span class="benefit-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--forest)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span>Exemplos com dados de contexto empresarial — nada de tutoriais genéricos que não se encaixam no trabalho real.</span>
+          </div>
+        </div>
+
+        <a href="index.html#solucoes" class="btn-outline" style="align-self:flex-start;">
+          Ver todas as soluções
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 9L9 2M9 2H5M9 2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Right: pricing -->
+      <div class="prod-pricing">
+        <div class="prod-price-card">
+          <div>
+            <div class="prod-price-label">Preço único</div>
+            <div class="prod-price-val"><sup>R$</sup>29<span style="font-size:1.4rem;font-weight:400;">,99</span></div>
+            <div class="prod-price-note">Pagamento único · Sem mensalidade</div>
+          </div>
+
+          <div class="prod-includes">
+            <div class="prod-include-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="rgba(255,255,255,0.70)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Acesso vitalício ao material
+            </div>
+            <div class="prod-include-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="rgba(255,255,255,0.70)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Atualizações futuras inclusas
+            </div>
+            <div class="prod-include-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="rgba(255,255,255,0.70)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Planilha de exercícios inclusa
+            </div>
+            <div class="prod-include-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="rgba(255,255,255,0.70)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Suporte via WhatsApp
+            </div>
+          </div>
+
+          <a href="mailto:eduardorioverde12@gmail.com?subject=Compra Excel Básico Corporativo" class="btn-buy">
+            Adquirir Agora → R$ 29,99
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="var(--forest)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- EM BREVE -->
+<section id="em-breve">
+  <div class="container">
+    <div class="soon-head fade-in">
+      <div class="eyebrow">Em Breve</div>
+      <h2>Mais produtos <em>chegando.</em></h2>
+      <p>Novos materiais em desenvolvimento. Cadastre-se no WhatsApp para ser avisado antes do lançamento.</p>
+    </div>
+    <div class="soon-grid">
+
+      <div class="soon-card fade-in d1">
+        <div class="soon-pill"><span class="soon-pill-dot"></span>Em Desenvolvimento</div>
+        <div class="soon-card-title">Power BI para Gestores</div>
+        <div class="soon-card-desc">Como construir dashboards que tomam decisões — sem precisar de um analista ao lado o tempo todo.</div>
+      </div>
+
+      <div class="soon-card fade-in d2">
+        <div class="soon-pill"><span class="soon-pill-dot"></span>Em Desenvolvimento</div>
+        <div class="soon-card-title">Modelagem de Processos com BPMN</div>
+        <div class="soon-card-desc">O guia prático para mapear, documentar e redesenhar fluxos que travam a operação.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-wrap" style="margin-bottom:1rem;display:inline-flex;">
+          <img src="logo.jpg" alt="ESC Nexus" class="logo-img">
+          <div class="logo-text"><span class="logo-esc">ESC</span><span class="logo-nexus">NEXUS<span class="logo-suffix">Consultoria</span></span></div>
+        </a>
+        <p class="footer-brand-desc">Arquitetando sistemas que transformam dados em poder de decisão. Conectando operações à inteligência estratégica.</p>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Navegação</h4>
+        <a href="index.html#manifesto">Manifesto</a>
+        <a href="index.html#solucoes">Soluções</a>
+        <a href="index.html#dados">Engenharia de Dados</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="index.html#ecossistema">Ecossistema</a>
+        <a href="sobre.html">Quem Somos</a>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Contato</h4>
+        <a href="https://wa.me/5564992999940" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.instagram.com/eduardo_sousarv?igsh=d2sycmZzcGZyb2Iw&utm_source=qr" target="_blank" rel="noopener">@eduardo_sousarv</a>
+        <a href="https://www.instagram.com/excel_rv?igsh=Zm5jZWIzcXkxd2Ni&utm_source=qr" target="_blank" rel="noopener">@excel_rv</a>
+        <a href="https://www.instagram.com/oinvestidorpobre_?igsh=YzA3dXZ4YzRxcHhx&utm_source=qr" target="_blank" rel="noopener">@oinvestidorpobre_</a>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">© 2025 ESC Nexus Consultoria · Todos os direitos reservados</span>
+      <span class="footer-tagline">Conectando Operações · Arquitetando Inteligência</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => { prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; });
+
+// Header scroll
+const hdr = document.getElementById('main-header');
+window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 20));
+
+// Back to top
+const bt = document.getElementById('back-top');
+window.addEventListener('scroll', () => bt.classList.toggle('visible', window.scrollY > 500));
+
+// Mobile nav
+const burger = document.getElementById('hamburger');
+const mNav = document.getElementById('mobile-nav');
+burger.addEventListener('click', () => { burger.classList.toggle('open'); mNav.classList.toggle('open'); });
+function closeMobileNav() { burger.classList.remove('open'); mNav.classList.remove('open'); }
+
+// Fade-in observer
+const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+// Ticker
+const tickerItems = ['Excel Avançado','Power BI','Automação Corporativa','Tabelas Dinâmicas','Modelagem de Dados','Dashboards','KPIs Operacionais','Funções Avançadas','Produtividade','Ambiente Corporativo'];
+const allT = [...tickerItems, ...tickerItems];
+const tt = document.getElementById('ticker-track');
+allT.forEach(item => { const el = document.createElement('span'); el.className = 'ticker-item'; el.innerHTML = `${item}<span class="ticker-sep">◆</span>`; tt.appendChild(el); });
+
+// Dark mode
+const html = document.documentElement;
+const themeBtn = document.getElementById('theme-toggle');
+function setTheme(t) { html.setAttribute('data-theme', t); localStorage.setItem('nexus-theme', t); }
+themeBtn.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+</script>
+</body>
+</html>
